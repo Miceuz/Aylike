@@ -1,0 +1,1 @@
+<?php Part::draw('videoItem/details', $videoItem) ?>

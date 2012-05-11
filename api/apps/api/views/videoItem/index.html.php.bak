@@ -1,0 +1,17 @@
+<?php 
+Layout::extend('layouts/videoItem');
+$title = 'Index';
+?>
+
+<h3><?php echo Html::anchor(Url::action('VideoItemController::newForm'), 'Create New VideoItem') ?></h3>
+
+<?php if(isset($flash)): ?>
+	<div class="error">
+	<?php echo $flash; ?>
+	</div>
+<?php endif; ?>
+
+<?php foreach($videoItemSet as $videoItem): ?>
+	<?php Part::draw('videoItem/details', $videoItem) ?>
+	<hr />
+<?php endforeach; ?>

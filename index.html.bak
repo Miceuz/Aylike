@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License
+
+Name       : Boosting  
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20100110
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>ayLike - create, share and watch video playlists from various sources</title>
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/themes/base/jquery-ui.css">
+<link href="style.css" rel="stylesheet" type="text/css" media="screen" />
+    <script src="swfobject.js"></script>
+    <script src="util.js"></script>
+    <script src="DhtmlService.js"></script>
+    <script src="FacebookService.js"></script>
+    <script src="YoutubeService.js"></script>
+    <script src="AylikeService.js"></script>
+    <script src="player.js"></script>
+    <script src="aylike.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+</head>
+<body>
+    <div id="fb-root"></div>
+    <script>
+    onload=function(){
+        if (document.getElementsByClassName == undefined) {
+            document.getElementsByClassName = function(className)
+            {
+                var hasClassName = new RegExp("(?:^|\\s)" + className + "(?:$|\\s)");
+                var allElements = document.getElementsByTagName("*");
+                var results = [];
+
+                var element;
+                for (var i = 0; (element = allElements[i]) != null; i++) {
+                    var elementClass = element.className;
+                    if (elementClass && elementClass.indexOf(className) != -1 && hasClassName.test(elementClass))
+                        results.push(element);
+                }
+
+                return results;
+            }
+        }
+    }
+      window.fbAsyncInit = function() {
+        
+        FB.Event.subscribe('auth.statusChange', function(response) {
+          console.log('auth.statusChange', response);
+        });
+
+        FB.Event.subscribe('auth.authResponseChange', function(response) {
+          console.log('auth.statusChange', response);
+        });
+        
+        FB.init({
+          appId      : '285413401490779', // App ID
+          channelURL : '//aylike.com/channel.html',
+          status     : true, // check login status
+          cookie     : true, // enable cookies to allow the server to access the session
+          oauth      : true, // enable OAuth 2.0
+          xfbml      : true  // parse XFBML
+        });
+        onFBApiLoaded();
+        // Additional initialization code here
+      };
+
+      // Load the SDK Asynchronously
+      (function(d){
+         var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+         js = d.createElement('script'); js.id = id; js.async = true;
+         js.src = "http://connect.facebook.net/en_US/all.js";
+         d.getElementsByTagName('head')[0].appendChild(js);
+       }(document));
+    </script>
+
+<div id="wrapper">
+	<div id="header">
+		<div id="logo">
+			<h1><a href="#">ayLike</a></h1>
+			<p>create, share and watch video playlists from various sources</p>
+		</div>
+	</div>
+	<!-- end #header -->
+	<div id="page">
+	<div id="page-bgtop">
+	<div id="page-bgbtm">
+		<div id="sidebar">
+			<ul>
+				<li>
+					<h2 id="loginHeader">Login to start</h2>
+					<p id="loginLink"><a href="" onclick="loginToFacebook();return false;"><img src="images/logo_facebook.jpg" width="20" valign="middle"/> Login to facebook</a></p>
+				</li>
+				<li id="user-videos-block" style="display:none;">
+					<h2 id="playlistTitle">Your Facebook video stream</h2>
+                    <p></p>
+                    <p>
+                    <select id="playlistSelect" style="display:none" onchange="onPlaylistOption(this.value);return true;">
+                        <option value="facebook">Your facebook video stream</option>
+                        <option value="new">New...</option>
+                    </select>
+                    </p>
+					<ul id="user-videos" style="height: 600px; overflow:auto;">
+					</ul>
+                    [<a href="#" onclick="loadMore();return false;">more...</a>]<img src="images/ajax-loader.gif" id="loadingIndicator" style="display:none;"/>
+                    
+				</li>
+			</ul>
+		</div>
+		<!-- end #sidebar -->
+		<div id="content">
+			<div class="post">
+				<h2 class="title"><a href="#">Welcome to ayLike</a></h2>
+				<div style="clear: both;">&nbsp;</div>
+				<div class="entry">
+                    <div id="ytapiplayer" style="width:860px; height:613px; background-color:black;">
+
+                        
+                    </div>
+                    <div style="text-align:center; display:none; font-size:16pt;" id="videoButtons">
+                        [<a href="#" style="text-decoration:underline" onclick="ayLike(); return false;">AyLike!</a>] 
+                        [<a href="#" style="text-decoration:underline" onclick="addCurrentItemToPlaylist()">add to playlist...</a>]
+                        [<a href="javascript:share();" style="text-decoration:underline" style="text-decoration:underline;" onclick="">share</a>] 
+                        [<a href="#" style="text-decoration:underline" onclick="playNext();return false;">next &gt;&gt;</a>]
+                        <!--div id="fbLikeButton"></div-->
+                    </div>
+
+				</div>
+			</div>
+			<div class="post" style="display:none;">
+				<h2 class="title"><a href="#">Debug</a></h2>
+				<div style="clear: both;">&nbsp;</div>
+				<div class="entry">
+                    <div id="debug">
+                        
+                    </div>
+                    
+
+				</div>
+			</div>
+		<div style="clear: both;">&nbsp;</div>
+		</div>
+		<!-- end #content -->
+		<div style="clear: both;">&nbsp;</div>
+	</div>
+	</div>
+	</div>
+	<!-- end #page -->
+</div>
+	<div id="footer">
+		<p>Copyright (c) 2011 ayLike.com. All rights reserved.</p>
+	</div>
+	<!-- end #footer -->
+    <div id="newPlaylistDialog" style="display:none">
+        <label for="newPlaylistName">Name:</label><input name="newPlaylistName" id="newPlaylistName"/>
+    </div>
+    
+    <div id="addToPlaylistDialog" style="display:none">
+        <div id="playlistsInDialog">
+        </div>
+        <div>
+            <a href="#" onclick="addNewPlaylist();return false;">Add new playlist...</a>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $('#newPlaylistDialog').dialog({
+            autoOpen: false,
+            title:'New playlist',
+            buttons:{
+                "Create": function(){createPlaylist(document.getElementById('newPlaylistName').value)}, 
+                "Cancel": function(){$(this).dialog("close"); $('#addToPlaylistDialog').removeData('itemToAdd')}
+            }
+        });
+        
+        $('#addToPlaylistDialog').dialog({
+            autoOpen: false,
+            title:'Add to playlist:',
+            buttons:{
+                "Cancel": function(){$(this).dialog("close"); $('#addToPlaylistDialog').removeData('itemToAdd')}
+            }
+        });
+
+   </script>
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+<?php 
+Layout::extend('layouts/videoItem');
+$title = 'Details of VideoItem #' . $videoItem->id ;
+?>
+
+<?php Part::draw('videoItem/details', $videoItem) ?>
+
+<?php echo Html::anchor(Url::action('VideoItemController::index'), 'Back to list of videoItems') ?>
+<hr />

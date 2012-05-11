@@ -1,0 +1,20 @@
+<?php
+Part::input($videoItem, 'VideoItem');
+?>
+<form method="POST" action="<?php echo Url::action('VideoItemController::delete', $videoItem->id) ?>">
+	<fieldset>
+	<h3><?php echo Html::anchor(Url::action('VideoItemController::details', $videoItem->id), 'VideoItem #' . $videoItem->id) ?></h3>
+	<p>
+		<strong>Facebook Id</strong>: <?php echo $videoItem->facebookId; ?><br />
+		<strong>Playlist Id</strong>: <?php echo $videoItem->playlistId; ?><br />
+		<strong>Youtube Id</strong>: <?php echo $videoItem->youtubeId; ?><br />
+		<strong>Title</strong>: <?php echo $videoItem->title; ?><br />
+		<strong>Thumbnail Url</strong>: <?php echo $videoItem->thumbnailUrl; ?><br />
+		<strong>Time Added</strong>: <?php echo date(DATE_ISO8601,$videoItem->timeAdded); ?><br />
+
+	</p>
+	<?php echo Html::anchor(Url::action('VideoItemController::editForm', $videoItem->id), 'Edit') ?> - 
+	<input type="hidden" name="_METHOD" value="DELETE" />
+	<input type="submit" name="delete" value="Delete" />
+	</fieldset>
+</form>

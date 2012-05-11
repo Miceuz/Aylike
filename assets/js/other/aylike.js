@@ -17,6 +17,8 @@
         facebookService.loginToFacebook(onLoggedInToFacebook);
     }
     
+    var fbLoadingSemaphore = false;
+    
     function onLoggedInToFacebook() {
         console.debug('----------- 2 LOGGED ON, LOADING FB VIDEO LINKS AND PLAYLISTS OF ME -----------------');
         if(canStartVideo()) {
@@ -26,6 +28,7 @@
         }
         dhtmlService.setPlaylistTitle("Your Facebook stream");
         facebookService.loadVideoLinks(10, onFBVideoLinksLoaded);
+        fbLoadingSemaphore = true;
         aylikeService.loadUserPlaylists(facebookService.myFacebookId, facebookService.myName, onOwnPlaylistsLoaded);
     }
     
@@ -45,6 +48,11 @@
 
     function onFBVideoLinksLoaded(loadedVideoItems) {
         console.debug('----------- 3 VIDEO LINKS LOADED -----------------');
+        if (cancelFBStreamLoad) {
+            cancelFBStreamLoad = false;
+            console.debug("FB video links load cancelled");
+            return;
+        }
         dhtmlService.onVideosAvailable();
 
         facebookService.onVideoLinksAvailableCallback = null;
@@ -54,7 +62,7 @@
             console.debug('----------- 3.1 FB PLAYLIST CONTAINS ' + playlist.length + ' ITEMS, LOADING MOAR!!!');
             facebookService.loadVideoLinks(60, onFBVideoLinksLoaded);
         } else {
-            console.debug('----------- 3.2 FB PLAYLIST CONTAINS ' + playlist.length + ' ITEMS, LOADING LOADING FRIENDS OF ME');
+            console.debug('----------- 3.2 FB PLAYLIST CONTAINS ' + playlist.length + ' ITEMS, LOADING FRIENDS OF ME');
             facebookService.getUserFriends(onUserFriendsAvailable);
         }
     }
@@ -149,6 +157,8 @@
         facebookService.loadVideoLinks(30, function(loadedVideoItems){addToPlaylist(loadedVideoItems, true);});
     }
     
+    var cancelFBStreamLoad = false;
+    
     function onPlaylistOption(playlistId){
         if("facebook" == playlistId) {
             clearPlaylist();
@@ -163,7 +173,7 @@
 
             return;
         }
-
+        cancelFBStreamLoad = true;
         loadPlaylist(playlistId);
     }
     

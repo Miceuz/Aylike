@@ -186,6 +186,7 @@
                                 </div>
                                 
                         </div>
+
                         <div class="span2 sidebar-right">
                             <div id="friendBlock" style="display:none;">
                                 <img class="pull-left" id="friendAvatar" src="http://graph.facebook.com/talandis/picture" />
@@ -194,7 +195,8 @@
                                 </div>
                                 <div class="clearfix"></div>
                                     
-                                <a id="friendHideLink" class="hide-link" href="#" >&times; Hide friend from streams</a>                
+                                <a id="friendHideLink" class="hide-link" href="#" >&times; Hide from streams</a>                
+                                <a id="friendInvite" class="hide-link" href="#" onclick="return false;">Encourage to join ayLike</a>                
                             </div>
                             
                             <div class="playlists">
@@ -205,7 +207,27 @@
                                 </div>
                             </div>                
                         </div>
-                     </div>                   
+                         <div class="span8 mt40">
+                            <h1>Please, leave us feedback</h1>
+                            <p id="thanks" style="display:none;"><img src="happycat.jpg"/><br/>Thanks!</p>
+                            
+                            <form class="form-horizontal" id="feedback-form" onsubmit="return sendEmail()">
+                                <fieldset>
+                                    <p>We are the new growing initiative, your feedback is of great value for us. Please send us your thoughts, ideas and bug reports.</p>
+                                    <div class="control-group">
+                                        <label class="control-label" for="feedbackText">Comment:</label>
+                                        <div class="controls">
+                                            <textarea class="input-xlarge" rows="3" id="feedbackText" name="feedbackText" ></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-actions">
+                                        <input class="btn btn-primary" type="button" value="Send feedback" onclick="sendEmail()"/>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                     </div>
+ 
                 </div>
             </div>      
         </div>
@@ -259,8 +281,7 @@
                 </div>
             </div>
 
-        </div>
-        
+        </div>        
         
         <div class="row">
             <div class="span12 footer">

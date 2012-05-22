@@ -60,6 +60,10 @@ DhtmlService.prototype.updateFriendName = function(friendFacebookId, name) {
         return false;
     };
     document.getElementById("friendBlock").style.display="block";
+    document.getElementById("friendInvite").onclick= function() {
+        inviteFriend(friendFacebookId);
+        return false;
+    };
 };
 
 DhtmlService.prototype.hideFriendName = function () {

@@ -287,3 +287,28 @@
         loginToFacebook();
     }
     
+	function sendEmail() {
+        document.getElementById("feedback-form").style.display="none";
+        document.getElementById("thanks").style.display="block";
+        var comment = document.getElementById("feedbackText").value;
+		if(null != comment && comment.trim() != ""){
+            var params = "name=" + facebookService.myName + "&facebookId=" + facebookService.myFacebookId + "&comment=" + encodeURIComponent(document.getElementById("feedbackText").value) ; 
+			var request = new XMLHttpRequest();
+
+            request.open("POST", "emails.php" + "?t=" + Math.random(), true);
+
+            request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            request.setRequestHeader("Content-length", params.length);
+            request.setRequestHeader("Connection", "close");
+            
+			request.send(params);
+            document.getElementById("feedbackText").value = "";
+		}
+        setTimeout("document.getElementById(\"feedback-form\").style.display=\"block\"; document.getElementById(\"thanks\").style.display=\"none\";", 2000);
+
+        return false;
+	}
+    
+    function inviteFriend(friendFacebookId) {
+        facebookService.inviteFriend(friendFacebookId);
+    }

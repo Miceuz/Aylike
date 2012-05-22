@@ -59,7 +59,7 @@
         function displayDone() {
             dhtmlService.hideSignedUserBlocks();
             document.getElementById("done").style.display = 'block';
-            setTimeout("self.close();", 1000);
+            //setTimeout("self.close();", 1000);
         }
 
         function displayUrlRequirements() {
@@ -125,7 +125,17 @@
         }        
         
         function postToAylike() {
+            var postToFacebook = document.getElementById("postToFacebook").checked;
             var playlistsSelect = document.getElementById("playlists");
+            if(postToFacebook) {
+                FB.api('/me/feed', 'post', {link:postUrl, actions: [{name:'Discover ayLike', link:'http://aylike.com'}], privacy: {value:'ALL_FRIENDS'}}, function(response) {
+                  if (!response || response.error) {
+                    alert('Error occured');
+                  } else {
+                    alert('Post ID: ' + response);
+                  }
+                });
+            }
             if(playlistsSelect.value != "") {
                 aylikeService.addToPlaylist(playlistsSelect.value, facebookService.myFacebookId, postYoutubeId, document.getElementById('title').value, postThumbnailUrl, postViewCount,
                     function() {
@@ -260,6 +270,7 @@
                                 </div>
                             </div>
                             <div class="form-actions">
+                                    <p><input class="checkbox" type="checkbox" name="postToFacebook" id="postToFacebook" value="1"/> post this to my facebook too</p>
                                     <input class="btn btn-warning" type="button" value="ayLike!" onclick="postToAylike()">
                                     <input class="btn" type="button" value="Cancel" onclick="self.close();">
                             </div>

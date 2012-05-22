@@ -197,9 +197,25 @@ FacebookService.prototype.post = function(currentVideoItem) {
           link: 'http://www.youtube.com/watch?v=' + currentVideoItem.youtubeId,
           name: currentVideoItem.title,
           caption: 'ayLike.com - create, share and watch video playlists from various sources',
+          actions: [{name:'Discover ayLike', link:'http://aylike.com'}],
           display: 'iframe'
         };
           /*caption: 'Reference Documentation',*/
           /*picture: currentVideoItem.thumbnailUrl,*/
     FB.ui(obj, function(response){});
+};
+
+FacebookService.prototype.inviteFriend = function(friendFacebookId) {
+    var obj= {
+          method: 'send',
+          link: 'http://aylike.com',
+          description: 'Create, share and watch video playlists from various sources',
+          picture: 'http://aylike.com/assets/img/step3.png',
+          name: 'ayLike',
+          to: this.myFacebookId,
+          display: 'iframe'
+    };
+    FB.ui(obj, function(response){
+        console.log(response);
+    });
 };

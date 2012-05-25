@@ -26,6 +26,16 @@ class PlaylistController extends Controller {
     
     /** !Route GET, ofUser/$facebookId */
     function ofUser($facebookId) {
+        $playlist = new Playlist();
+        $defaultPlaylists = $playlist->all()->equal('facebookId', $facebookId)->equal('isDefault', 1);
+        if(!$defaultPlaylists->exists()){
+            $playlist = new Playlist();
+            $playlist->isDefault = 1;
+            $playlist->name = 'ayLike playlist';
+            $playlist->facebookId = $this->videoItem->facebookId;
+            $playlist->save();
+        }
+
 		$this->playlistSet = $this->playlist->all();
         $this->playlistSet=$this->playlistSet->equal('facebookId', $facebookId)->orderBy("id desc");
         return $this->ok('index');

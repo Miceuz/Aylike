@@ -59,7 +59,7 @@
         function displayDone() {
             dhtmlService.hideSignedUserBlocks();
             document.getElementById("done").style.display = 'block';
-            //setTimeout("self.close();", 1000);
+            setTimeout("self.close();", 1000);
         }
 
         function displayUrlRequirements() {
@@ -139,16 +139,17 @@
             if(playlistsSelect.value != "") {
                 aylikeService.addToPlaylist(playlistsSelect.value, facebookService.myFacebookId, postYoutubeId, document.getElementById('title').value, postThumbnailUrl, postViewCount,
                     function() {
-                        displayDone();
+//                        displayDone();
                     }
                 );
             } else {
                 aylikeService.addToDefaultPlaylist(facebookService.myFacebookId, postYoutubeId, document.getElementById('title').value, postThumbnailUrl, postViewCount,
                     function() {
-                        displayDone();
+//                        displayDone();
                     }
                 );
             }
+            displayDone();
         }
     </script>
   </head>
@@ -222,7 +223,7 @@
     <div class="container">
 
         <div id="done" class="row mt40" style="display: none;">
-            <div class="span12">
+            <div class="span6">
                 <p>The video was successfully saved to your ayLike playlist.</p>
                 <p>This window will close in 1 second.</p>
                 <form class="form-vertical">
@@ -234,7 +235,7 @@
         </div>
         
         <div id="urlRequirements" class="row mt40" style="display: none;">
-            <div class="span12">
+            <div class="span6">
                 <p>The URL you are trying to post is not a YouTube URL. Currently only YouTube videos are supported. Sorry.</p>
                 <form class="form-vertical">
                     <div class="form-actions">

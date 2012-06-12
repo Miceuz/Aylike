@@ -32,7 +32,7 @@ class PlaylistController extends Controller {
             $playlist = new Playlist();
             $playlist->isDefault = 1;
             $playlist->name = 'ayLike playlist';
-            $playlist->facebookId = $this->videoItem->facebookId;
+            $playlist->facebookId = $facebookId;
             $playlist->save();
         }
 

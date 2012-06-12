@@ -132,7 +132,7 @@
                   if (!response || response.error) {
                     alert('Error occured');
                   } else {
-                    alert('Post ID: ' + response);
+                    // viskas gerai 
                   }
                 });
             }

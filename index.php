@@ -148,15 +148,6 @@
                         </ul>
                     </div>
                     
-<!--                     <h4>Friends</h4> -->
-                    
-<!--
-                    <div id="friendsPlaylists" style="display:none;">
-                        <h4>Friends' playlists</h4>
-                        <ul id="friendsPlaylistBlock">
-                        </ul>
-                    </div>
--->
                     <div class="bookmarklet">
                         <a class="btn" title="ayLike!" href="javascript:var%20d=document,w=window,f='http://aylike.com/post.php',l=d.location,e=encodeURIComponent,p='?u='+e(l.href)%20+'&t='+e(d.title),u=f+p;a%20=function(){if(!w.open(u,'t','toolbar=0,resizable=0,status=1,width=550,height=425'))l.href=u;};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();void(0);">ayLike</a> 
                         <p><span class="arr">&uarr;</span><br />Drag this button to your bookmarks bar and click it when you see a video you like.</p>
@@ -253,7 +244,7 @@
                 <div class="span12">
                     <div class="get-started">
                         The easiest way to start collecting videos is to
-                        <div class="fb-login-button" data-show-faces="false" data-width="150" data-max-rows="1" onlogin="facebookService.onLogin(response);"></div>
+                        <div class="fb-login-button" data-show-faces="false" data-width="150" data-max-rows="1" onlogin="loginToFacebook();"></div>
                         <span class="small">or <a href="#">take a quick tour</a> to learn more</span>
                     </div>
                 </div>

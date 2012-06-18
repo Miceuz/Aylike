@@ -129,8 +129,7 @@
             <div class="span12">
                 
                 <img src="assets/img/ajax-loader-big.gif" />                
-                <h1>Please wait while we load your Facebook stream videos</h1>
-                
+                <h1>Please wait while we load some videos for you to enjoy</h1>
             </div>
         </div>
 
@@ -140,6 +139,7 @@
                     <h4>Streams</h4>
                     <ul>
                         <li id="playlist_facebook" class="activePlaylist"><a href="#" onclick="onPlaylistOption('facebook')">Facebook friends stream</a></li>
+                        <li id="playlist_aylike" class=""><a href="#" onclick="onPlaylistOption('aylike')">ayLike stream</a></li>
                     </ul>
                     <div id="ownPlaylists" style="display:none;">
                         <h4>Playlists</h4>

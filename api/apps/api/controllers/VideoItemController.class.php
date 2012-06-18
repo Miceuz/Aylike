@@ -31,6 +31,13 @@ class VideoItemController extends Controller {
         return $this->ok('index');
 	}
 
+	/** !Route GET, watchingNow/$fromIndex/$count */
+	function watchingNow2($fromIndex, $count) {
+		$this->videoItemSet = $this->videoItem->all();
+        $this->videoItemSet = $this->videoItemSet->orderBy('id DESC')->limit($count, $fromIndex);
+        return $this->ok('index');
+	}
+
 	/** !Route GET, mostPopular */
 	function mostPopular() {
 		$this->videoItemSet = $this->videoItem->all();

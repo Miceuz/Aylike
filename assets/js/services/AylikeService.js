@@ -43,6 +43,21 @@ AylikeService.prototype.getWatchingNow = function(callback) {
     });
 };
 
+AylikeService.prototype.getAylikeStream = function(from, count, callback) {
+    $.ajax({
+        url: 'api/index.php/api/videoItem/watchingNow/'+from+'/'+count,
+        type: 'GET',
+        dataType: 'json',
+        success: function(videoItems){
+            callback(videoItems)
+        }, 
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error("Error while loading watching now videos: " + textStatus, errorThrown, jqXHR);
+        }
+    });
+};
+
+
 AylikeService.prototype.addToDefaultPlaylist = function (facebookId, youtubeId, title, thumbnailUrl, viewCount, successCallback, errorCallback) {
     $.ajax({
         url: 'api/index.php/api/videoItem',

@@ -82,9 +82,27 @@
 
     
     function onUserPlaylistsLoaded(playlists, userName, userFacebookId, own) {
-        if(!own && playlists.length > 0) {
-            dhtmlService.addPlaylistHeader(userName, userFacebookId);
+        if (own) {
+            for(var i = 0; i < playlists.length; i++) {
+                addAylikePlaylist(playlists[i], userFacebookId, userName, own);
+            }
+            return;
         }
+        
+        var hasAylikeVideos = false;
+        
+        for(var i = 0; i < playlists.length; i++) {
+            if(playlists[i].videoItems.length > 0) {
+                hasAylikeVideos = true;
+                break;
+            }
+        }
+        
+        if(!hasAylikeVideos) {
+            return;
+        }
+        
+        dhtmlService.addPlaylistHeader(userName, userFacebookId);
         for(var i = 0; i < playlists.length; i++) {
             addAylikePlaylist(playlists[i], userFacebookId, userName, own);
         }
@@ -140,7 +158,7 @@
                 aylikeService.addToDefaultPlaylist(facebookService.myFacebookId, loaded.data.id, loaded.data.title, loaded.data.thumbnail.sqDefault, loaded.data.viewCount,
                     function(data, textStatus, jqXHR) {
                         onAyliked(data);
-                        console.debug("imported like from facebook: ", importedVideoItem);
+                        console.debug("!!!!! >>>>>>>>>>>>>>>> imported like from facebook: ", importedVideoItem);
                     }
                 );
             }, 500 + Math.random() * 10000);
@@ -168,13 +186,31 @@
             dhtmlService.setActivePlaylist(playlistId);
             
             return;
+        } else if("aylike" == playlistId) {
+            clearPlaylist();
+            
+            aylikeService.getAylikeStream(0, 30, onAylikeStreamLoaded);
+            
+            dhtmlService.setPlaylistTitle("ayLike stream");
+            dhtmlService.onStartLoading();
+            dhtmlService.setActivePlaylist(playlistId);  
+            return;          
         } else if("new" == playlistId) {
             $( '#newPlaylistDialog' ).modal('show');
-
             return;
+        } else {
+            cancelFBStreamLoad = true;
+            loadPlaylist(playlistId);
         }
-        cancelFBStreamLoad = true;
-        loadPlaylist(playlistId);
+    }
+    
+    function onAylikeStreamLoaded (loadedVideoItems){
+        for(var i = 0; i < loadedVideoItems.length; i++) {
+            loadedVideoItems[i].actor_id = loadedVideoItems[i].facebookId;//pasidedam i actor_id, kad playeris galetu parodyt draugo veida
+        }
+        addToPlaylist(loadedVideoItems, false); 
+        dhtmlService.onVideosAvailable();
+        playPlaylistItem(0);
     }
     
     function ayLike() {
